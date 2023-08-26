@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "lib": ["ES2022", "DOM"],
+        "noImplicitAny": true,
+        "preserveConstEnums": true,
+        "allowImportingTsExtensions": true,
+        "noEmit": true,
+
+        "baseUrl": "./",
+        "paths": {
+            "@frontend/*": ["frontend/*"],
+            "@runtime/*": ["./runtime/*"],
+        }
+    }
+}

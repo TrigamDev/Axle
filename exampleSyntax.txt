@@ -1,0 +1,22 @@
+# Function to calculate the sum
+func add(a, b):
+    return a + b
+
+# Function to calculate the factorial
+func factorial(n):
+    if n <= 1:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+# Main program
+var x = 5
+var y = 7
+var sum = add(x, y)
+
+print("The sum of ", x, " and ", y, " is: ", sum)
+
+var num = 6
+var fact = factorial(num)
+
+print("The factorial of ", num, " is: ", fact)
