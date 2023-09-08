@@ -3,8 +3,6 @@
 // |---     Converts source code into an array of tokens     ---|
 // |------------------------------------------------------------|
 
-
-
 export enum TokenType {
     // Literal types
     Indentifier,
