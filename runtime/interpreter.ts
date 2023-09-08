@@ -1,11 +1,11 @@
-import { ValueType, RuntimeValue, NumberValue, NullValue } from "./values.ts";
+import { RuntimeValue, NumberValue, createNullValue, createNumberValue } from "./values.ts";
 import { BinaryExpression, NumericLiteral, Statement, Program, Identifier } from "../frontend/ast.ts";
 import Environment from "./environment.ts";
 
 export function evaluate(astNode: Statement, environment: Environment): RuntimeValue {
     switch (astNode.type) {
-        case "NumericLiteral": return { value: ((astNode as NumericLiteral).value), type: "number" } as NumberValue;
-        case "NullLiteral": return { type: "null", value: "null" } as NullValue;
+        case "NumericLiteral": return createNumberValue((astNode as NumericLiteral).value);
+        case "NullLiteral": return createNullValue();
         case "Identifier": return evaluateIdentifier(astNode as Identifier, environment);
         case "BinaryExpression": return evaluateBinaryExpression(astNode as BinaryExpression, environment);
         case "Program": return evaluateProgram(astNode as Program, environment);
@@ -15,7 +15,7 @@ export function evaluate(astNode: Statement, environment: Environment): RuntimeV
 }
 
 function evaluateProgram(program: Program, environment: Environment): RuntimeValue {
-    let lastEvaluated: RuntimeValue = { type: "null", value: "null" } as NullValue;
+    let lastEvaluated: RuntimeValue = createNullValue();
     for (const statement of program.body) {
         lastEvaluated = evaluate(statement, environment);
     };
@@ -27,7 +27,7 @@ function evaluateBinaryExpression(binaryOperation: BinaryExpression, environment
     const rightHand = evaluate(binaryOperation.right, environment);
     if (leftHand.type == "number" && rightHand.type == "number") {
         return evaluateNumericBinaryExpression(leftHand as NumberValue, rightHand as NumberValue, binaryOperation.operator);
-    } else return { type: "null", value: "null" } as NullValue;
+    } else return createNullValue();
 }
 
 function evaluateNumericBinaryExpression(left: NumberValue, right: NumberValue, operator: string): RuntimeValue {
