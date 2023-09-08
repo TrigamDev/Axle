@@ -1,4 +1,3 @@
-import * as readline from 'readline-sync';
 import Parser from "./frontend/parser.ts";
 import { evaluate } from "./runtime/interpreter.ts";
 import Environment from './runtime/environment.ts';
@@ -12,13 +11,13 @@ function axle() {
     const environment = globalEnvironment();
     console.log("Axle v0.1")
     while (true) {
-        const input = readline.question("> ");
+        const input = prompt("> ");
         if (!input || input.includes("exit")) break;
 
         const program = parser.produceAST(input);
         const result = evaluate(program, environment);
         
-        console.dir(result, { depth: null });
+        console.dir(result);
     }
 }
 
